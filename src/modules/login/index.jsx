@@ -62,7 +62,7 @@ export default function Login({ navigation }) {
     <Wrapper>
       <View style={{ paddingHorizontal: normalize(24), flex: 1 }}>
         <View style={{ flex: 0.5, justifyContent: 'center' }}>
-          <Image style={{ width: '100%', height: 80, tintColor: isDarkMode ? 'white' : 'black' }} resizeMode="contain" source={LogoApp} />
+          <Image style={{ width: '100%', height: 150, tintColor: isDarkMode ? 'white' : 'black' }} resizeMode="contain" source={LogoApp} />
         </View>
         <View style={{ flex: 1 }}>
           <Input
