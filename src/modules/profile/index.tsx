@@ -20,20 +20,21 @@ export default function Profile({ navigation }: ProfileProps) {
   const { isDarkMode } = useDarkMode();
   const styles = _styles(isDarkMode);
 
-  // State variables to store username and email from AsyncStorage
-  const [username, setUsername] = useState('');
+  const [firstname, setUsername] = useState('');
+  const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
+  const [profileImg, setProfileImg] = useState('');
 
-  // Fetch user data from AsyncStorage when component mounts
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const userInfo = await AsyncStorage.getItem('userInfo');
         if (userInfo) {
-          console.log(userInfo)
           const parsedInfo = JSON.parse(userInfo);
-          setUsername(parsedInfo.username);
+          setUsername(parsedInfo.first_name);
+          setLastname(parsedInfo.last_name);
           setEmail(parsedInfo.email);
+          setProfileImg(parsedInfo.profile_picture);
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -42,6 +43,17 @@ export default function Profile({ navigation }: ProfileProps) {
 
     fetchUserData();
   }, []);
+
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem('userInfo');
+      navigation.navigate('login'); // Navigate to the login screen
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
+
+  const fullName = firstname && lastname ? `${firstname} ${lastname}` : "User";
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
@@ -52,11 +64,10 @@ export default function Profile({ navigation }: ProfileProps) {
             <View style={[styles.row, { marginTop: normalize(24) }]}>
               <Image
                 style={styles.avatar}
-                source={{ uri: 'https://i.ibb.co/Y70KDJ8/Avatar-12.png' }}
+                source={{ uri: profileImg }}
               />
               <View style={{ marginLeft: normalize(14) }}>
-                {/* Display username and email from AsyncStorage */}
-                <Typography customStyle={styles.textUser} value={username || "User Name"} />
+                <Typography customStyle={styles.textUser} value={fullName} />
                 <Typography customStyle={styles.email} value={email || "user.email@example.com"} />
               </View>
             </View>
@@ -112,7 +123,7 @@ export default function Profile({ navigation }: ProfileProps) {
           </View>
         </View>
         <View style={{ marginVertical: normalize(20) }}>
-          <Button title="Logout" isPrimary={false} />
+          <Button title="Logout" isPrimary={false} onPress={handleLogout} />
         </View>
       </View>
     </ScrollView>

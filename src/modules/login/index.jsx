@@ -100,7 +100,7 @@ export default function Login({ navigation }) {
         <View style={{ marginTop: normalize(32), flex: 1, marginBottom: normalize(10), justifyContent: 'flex-end' }}>
           <Button onPress={handleLogin} title="Sign in" />
           <View style={{ marginVertical: normalize(8) }} />
-          <Button onPress={() => navigation.navigate('register')} isPrimary={false} title="Create account" />
+       
         </View>
       </View>
     </Wrapper>

@@ -11,7 +11,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 export default function NavBar({openSearch, goToBag}: {openSearch: any, goToBag: any}) {
-  const [username, setUsername] = useState('');
+  const [firstname, setUsername] = useState('');
+  const [lastname, setlastname] = useState('');
 
   useEffect(() => {
     const fetchUsername = async () => {
@@ -19,7 +20,8 @@ export default function NavBar({openSearch, goToBag}: {openSearch: any, goToBag:
         const userInfo = await AsyncStorage.getItem('userInfo');
         if (userInfo) {
           const parsedInfo = JSON.parse(userInfo);
-          setUsername(parsedInfo.username);
+          setUsername(parsedInfo.first_name);
+          setlastname(parsedInfo.last_name);
         }
       } catch (error) {
         console.error('Error fetching username:', error);
@@ -28,6 +30,7 @@ export default function NavBar({openSearch, goToBag}: {openSearch: any, goToBag:
 
     fetchUsername();
   }, []);
+  const fullName = firstname && lastname ? `${firstname} ${lastname}` : "User";
   return (
     <View style={styles.container}>
       <View>
@@ -38,7 +41,7 @@ export default function NavBar({openSearch, goToBag}: {openSearch: any, goToBag:
           value="Good day for shopping," />
         <Typography
           customStyle={styles.nameUser}
-           value={username || "User"} />
+           value={fullName || "User"} />
       </View>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <TouchableOpacity onPress={openSearch}>
