@@ -1,0 +1,5 @@
+export { default as Paypal } from "./paypal.svg"
+export { default as GooglePay } from "./googlPay.svg"
+export { default as ApplePay } from "./applePay.svg"
+export { default as Visa } from "./visa.svg"
+export { default as Mastercard } from "./mastercard.svg"

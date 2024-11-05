@@ -1,0 +1,8 @@
+export { default as Adidas } from "./adidas.png"
+export { default as Apple } from "./apple.png"
+export { default as Levis } from "./levis.png"
+export { default as Msi } from "./msi.png"
+export { default as Nike } from "./nike.png"
+export { default as Nvidia } from "./nvidia.png"
+export { default as Puma } from "./puma.png"
+export { default as Zara } from "./zara.png"
