@@ -87,10 +87,14 @@ export default function SearchResult() {
 
               <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                 <View style={{flex: 0.48}}>
-                  <Input value="" Icon={Dollar} placeholder="Lowest" />
+                  <Input value="" Icon={Dollar} placeholder="Lowest" onChangeText={function (text: string): void {
+                    throw new Error("Function not implemented.");
+                  } } />
                 </View>
                 <View style={{flex: 0.48}}>
-                  <Input value="" Icon={Dollar} placeholder="Highest" />
+                  <Input value="" Icon={Dollar} placeholder="Highest" onChangeText={function (text: string): void {
+                    throw new Error("Function not implemented.");
+                  } } />
                 </View>
               </View>
             </View>

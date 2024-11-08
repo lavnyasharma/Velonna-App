@@ -24,7 +24,9 @@ export default function Store() {
         <TitleScreen value="Store" />
 
         <View>
-          <Input Icon={SearchNormalGray} value="" placeholder="Search in Store" />
+          <Input Icon={SearchNormalGray} value="" placeholder="Search in Store" onChangeText={function (text: string): void {
+          throw new Error("Function not implemented.");
+        } } />
         </View>
 
         <View style={{marginTop: normalize(10)}}>
