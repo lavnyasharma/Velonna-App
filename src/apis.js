@@ -2,7 +2,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import debounce from 'lodash.debounce';
 
-let shouldRefreshToken = true;  // Set to false to disable token refreshing
+let shouldRefreshToken = false;  // Set to false to disable token refreshing
 
 // Create an Axios instance
 const axiosInstance = axios.create({
@@ -125,8 +125,7 @@ const getUserInfo = async (username) => {
   }
 };
 
-// Debounced function to fetch product list
-const fetchProductList = debounce(async (page = 1, limit = 10) => {
+const fetchProductList = async (page = 1, limit = 10) => {
   try {
     const accessToken = await AsyncStorage.getItem('accessToken');
     const response = await axiosInstance.get(`/product-lists/`, {
@@ -143,7 +142,8 @@ const fetchProductList = debounce(async (page = 1, limit = 10) => {
     console.error('Error fetching product list:', error);
     throw error;
   }
-}, 300);  // Adjust the debounce delay as needed
+};
+
 
 // Export the instance and the functions
 export { axiosInstance, storeTokens, getUserInfo, fetchProductList };
