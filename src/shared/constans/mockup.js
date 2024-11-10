@@ -260,7 +260,7 @@ export const categoriesDefault = [
     active: false
   },
 ]
-export const brands: BrandDTO[] = [
+export const brands = [
   {
     id: '1',
     logo: Adidas,
@@ -346,7 +346,7 @@ export const sizes = [
     disabled: true
   }
 ]
-export const wishList: WishListDTO[] = [
+export const wishList= [
   {
     id: '1',
     images: [

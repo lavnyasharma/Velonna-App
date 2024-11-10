@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -17,6 +17,7 @@ import color from "@/shared/constans/colors";
 import { FONT } from "@/shared/constans/fonts";
 import { normalize } from "@/shared/helpers";
 import useDarkMode from "@/shared/hooks/useDarkMode";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Tab = createBottomTabNavigator();
 
@@ -88,11 +89,13 @@ function UnauthenticatedNavigator({ isAuthenticated }) {
     <UnauthenticatedStack.Navigator initialRouteName={isAuthenticated ? 'home' : 'onboarding'} screenOptions={{ headerShown: false }}>
       <UnauthenticatedStack.Screen
         name="home"
+        options={{headerShown:false}}
         component={Home}
       />
       {RoutesStack.map(route => {
         return (
           <UnauthenticatedStack.Screen
+          options={{ headerShown: false }}
             key={route.path}
             name={route.path}
             component={route.component}
@@ -104,10 +107,17 @@ function UnauthenticatedNavigator({ isAuthenticated }) {
 }
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  useEffect(()=>{
+    if (AsyncStorage.getItem("accessToken")){
+      setIsAuthenticated(true)
+    }else{
+      setIsAuthenticated(false)
+    }
+  },[])
   return (
     <NavigationContainer>
-      <UnauthenticatedNavigator isAuthenticated={isAuthenticated} />
+      <UnauthenticatedNavigator  isAuthenticated={isAuthenticated} />
     </NavigationContainer>
   );
 }

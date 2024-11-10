@@ -24,7 +24,7 @@ const getAccessToken = async () => {
 // Function to refresh the access token using refresh token
 const refreshAccessToken = async () => {
   try {
-    const refreshToken = await AsyncStorage.getItem('refresh_token');
+    const refreshToken = await AsyncStorage.getItem('refreshToken');
     if (!refreshToken) {
       throw new Error('No refresh token found');
     }
@@ -33,9 +33,11 @@ const refreshAccessToken = async () => {
 
     if (response && response.data && response.data.access_token) {
       const newAccessToken = response.data.access_token;
-      await AsyncStorage.setItem('access_token', newAccessToken);
+      await AsyncStorage.setItem('accessToken', newAccessToken);
       return newAccessToken;
     } else {
+      await AsyncStorage.removeItem("accessToken")
+      await AsyncStorage.removeItem("refreshToken")
       throw new Error('Failed to refresh access token');
     }
   } catch (error) {

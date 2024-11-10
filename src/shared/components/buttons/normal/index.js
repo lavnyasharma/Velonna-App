@@ -3,6 +3,7 @@ import Typography from "../../Typography";
 import { styless } from "./style";
 
 export default function Button({
+  titleStyle,
    title,
    disabled,
    isPrimary = true,
@@ -12,7 +13,7 @@ export default function Button({
   const styles = styless({ disabled, isPrimary });
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={disabled ? 1 : 0.9} style={styles.container}>
-      <Typography customStyle={styles.text} value={title} />
+      <Typography customStyle={[styles.text,titleStyle]} value={title} />
     </TouchableOpacity>
   );
 }

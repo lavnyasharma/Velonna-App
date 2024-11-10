@@ -1,7 +1,7 @@
 
 const color = {
   main: {
-    blue: '#4B68FF'
+    blue: '#202121'
   },
   secondary: {
     green: '#00CD88',

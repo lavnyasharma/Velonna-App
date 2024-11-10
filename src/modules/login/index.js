@@ -70,9 +70,9 @@ export default function Login({ navigation }) {
             onChangeText={(text) => {
               console.log('Username input:', text);
               setUsername(text);
-            }}
+          }}
             label="Username"
-            placeholder="Joen Doe"
+            
           />
           <View style={{ marginVertical: normalize(8) }} />
           <Input
@@ -83,7 +83,7 @@ export default function Login({ navigation }) {
               setPassword(text);
             }}
             label="Password"
-            placeholder="********"
+            
           />
           {error ? (
             <Typography customStyle={{ color: 'red', marginVertical: normalize(8) }} value={error} />

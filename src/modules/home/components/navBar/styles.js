@@ -6,7 +6,6 @@ import { FONT } from "@/shared/constans/fonts";
 export const styles = StyleSheet.create({
   container: {
     paddingHorizontal: normalize(24),
-    marginTop: normalize(26),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

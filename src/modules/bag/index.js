@@ -6,6 +6,7 @@ import { normalize } from "@/shared/helpers";
 import Button from "@/shared/components/buttons/normal";
 import HeaderBack from "@/shared/components/headerBack";
 import { useNavigation } from "@react-navigation/native";
+import useDarkMode from "@/shared/hooks/useDarkMode";
 
 export default function Bag() {
   const navigation = useNavigation();

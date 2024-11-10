@@ -35,11 +35,7 @@ export default function NavBar({ openSearch, goToBag }) {
   return (
     <View style={styles.container}>
       <View>
-        <Typography
-          customStyle={{
-            color: 'rgba(255, 255, 255, 0.5)'
-          }}
-          value="Good day for shopping," />
+       
         <Typography
           customStyle={styles.nameUser}
           value={fullName || "User"} />

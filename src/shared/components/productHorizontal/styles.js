@@ -3,6 +3,11 @@ import { normalize } from "@/shared/helpers";
 import { FONT } from "@/shared/constans/fonts";
 import color from "@/shared/constans/colors";
 
+const btn = {
+  borderRadius: 150,
+  width: normalize(25),
+  // height: normalize(22),
+}
 
 
 export const styless = (isDarkMode) => StyleSheet.create({

@@ -22,7 +22,7 @@ export default function Home({ navigation }) {
   const [products, setProducts] = useState([]); // State for products
   const [loading, setLoading] = useState(false); // State for loading
   const [error, setError] = useState(null); // State for error message
-
+  
   useEffect(() => {
     const loadProducts = async () => {
       setLoading(true);

@@ -116,7 +116,7 @@ export const styless = (isDarkMode) => StyleSheet.create({
     borderTopLeftRadius: normalize(14)
   },
   size: {
-    borderRadius: 16,
+    borderRadius: 10,
     borderWidth: 1,
     height: normalize(44),
     borderColor: color.stroke.gray,

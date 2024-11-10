@@ -92,15 +92,15 @@ export default function ProductDetail({ route }) {
         
           <View style={{ marginTop: normalize(20) }}>
           <Typography
-  customStyle={[{ fontFamily: FONT.SEMI_BOLD }, styles.price]}
-  value={product?.title
-    ? product.title.charAt(0).toUpperCase() + product.title.slice(1)
-    : ""}
-/>
+                customStyle={[{ fontFamily: FONT.SEMI_BOLD }, styles.price]}
+                value={product?.title
+                  ? product.title.charAt(0).toUpperCase() + product.title.slice(1)
+                  : ""}
+              />
 
           </View>
           <View style={{ marginTop: normalize(4) }}>
-            <Typography customStyle={{fontSize: normalize(16),fontFamily: FONT.SEMI_BOLD }} value={`Rs ${product.price}`} />
+            <Typography customStyle={{fontSize: normalize(20),fontFamily: FONT.SEMI_BOLD }} value={`Rs ${product.price}`} />
           </View>
           {/* Store information */}
           {/* <View style={styles.containerStore}>
@@ -142,7 +142,7 @@ export default function ProductDetail({ route }) {
 
           {/* Add to Bag and Buy Now buttons */}
           <View style={{ marginTop: normalize(24) }}>
-            <Button title="Add to bag" />
+            <Button titleStyle={{fontSize:20}} title="Add to bag" />
             <View style={{ marginVertical: normalize(5) }} />
             <Button isPrimary={false} title="Buy now" />
           </View>
