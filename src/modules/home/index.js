@@ -42,7 +42,7 @@ export default function Home({ navigation }) {
   }, []); 
 
   function goToBag() {
-    navigation.navigate('orderReview');
+    navigation.navigate('bag');
   }
 
   return (

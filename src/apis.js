@@ -97,7 +97,6 @@ const toggleTokenRefresh = (status) => {
   shouldRefreshToken = status;
 };
 
-
 // Function to store tokens in AsyncStorage
 const storeTokens = async (accessToken, refreshToken) => {
   try {
@@ -146,6 +145,31 @@ const fetchProductList = async (page = 1, limit = 10) => {
   }
 };
 
+// Function to add product to the cart
+const addToCart = async (productId, quantity) => {
+  try {
+    const accessToken = await AsyncStorage.getItem('accessToken');
+    const data = {
+      product: productId,
+      quantity: quantity.toString(),  // Ensure quantity is a string
+    };
+
+    const response = await axiosInstance.post('/cart/', data, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        'X-CSRFToken': 't59kNMaGLn9lff4ZFakCmGxCTnTcEUX20iEyNzv3iCkDaDwpWAtlHhaXEQY9f1gs',
+      
+      },
+    });
+
+    return response.data;  // Return the response from the API
+  } catch (error) {
+    console.error('Error adding product to cart:', error);
+    throw error;  // Optionally, re-throw the error to be handled by the caller
+  }
+};
 
 // Export the instance and the functions
-export { axiosInstance, storeTokens, getUserInfo, fetchProductList };
+export { axiosInstance, storeTokens, getUserInfo, fetchProductList, addToCart };

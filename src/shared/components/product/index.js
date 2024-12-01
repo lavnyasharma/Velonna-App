@@ -34,7 +34,7 @@ export default function Product({ product }) {
       <View style={{ marginTop: normalize(8), padding: normalize(8) }}>
         <Typography customStyle={styles.nameProduct} value={product.title} />
         <NameStore store={product.collection} />
-        <Typography customStyle={styles.price} value={`Rs ${product.price}`} />
+        <Typography customStyle={styles.price} value={`₹${product.price}`} />
       </View>
 
       {/* Loading or Error state */}

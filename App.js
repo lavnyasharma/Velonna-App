@@ -16,6 +16,7 @@ import Typography from "@/shared/components/Typography";
 import color from "@/shared/constans/colors";
 import { FONT } from "@/shared/constans/fonts";
 import { normalize } from "@/shared/helpers";
+import Toast from 'react-native-toast-message';
 import useDarkMode from "@/shared/hooks/useDarkMode";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -116,9 +117,14 @@ function App() {
     }
   },[])
   return (
-    <NavigationContainer>
+    <>
+      <NavigationContainer>
       <UnauthenticatedNavigator  isAuthenticated={isAuthenticated} />
     </NavigationContainer>
+     <Toast />
+     </>
+  
+    
   );
 }
 
