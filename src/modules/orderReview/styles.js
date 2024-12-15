@@ -36,5 +36,31 @@ export const styless = (isDarkMode) => StyleSheet.create({
     fontSize: normalize(18),
     marginLeft: normalize(10),
     fontFamily: FONT.SEMI_BOLD,
-  }
+  },
+ 
+  button: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#f0f0f0', // Light grey background color
+    paddingVertical: normalize(16),
+    paddingHorizontal: normalize(16),
+    borderRadius: normalize(8),
+    marginVertical: normalize(24),
+  },
+  svgContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: normalize(16),
+    color: '#000',
+    marginLeft: normalize(8),
+    fontFamily:FONT.MEDIUM
+  },
+  arrow: {
+    fontSize: normalize(16),
+    color: '#000',
+  },
 });
+

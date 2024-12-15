@@ -1,14 +1,12 @@
 import { normalize } from "@/shared/helpers";
-import { Image, TouchableOpacity, View, ActivityIndicator } from "react-native";
+import { Image, TouchableOpacity, View, Alert } from "react-native";
 import Typography from "@/shared/components/Typography";
-import { styless } from './styles';
-import React, { useState } from "react";
+import { styless } from "./styles";
+import React, { useState, useEffect } from "react";
 import useDarkMode from "@/shared/hooks/useDarkMode";
 import { useNavigation } from "@react-navigation/native";
-import { fetchProductList } from "@/apis"; // Import the function
-import { NavigationProps } from "@/shared/routes/stack";
-import NameStore from "@/shared/components/nameStore";
-import LikeComponent from "@/shared/components/like";
+import LikeComponent from "@/shared/components/like"; 
+import { Star } from "@/modules/home/components/layouts/section";
 
 export default function Product({ product }) {
   console.log(product)
@@ -16,30 +14,51 @@ export default function Product({ product }) {
   const { isDarkMode } = useDarkMode();
   const styles = styless(isDarkMode);
 
-  const [loading, setLoading] = useState(false); // State for loading
-  const [error, setError] = useState(null); // State for error message
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null);
+  const [liked, setLiked] = useState(false); 
 
-  // Function to navigate to product details page
+const hsn = product.hsn
   function goToDetail() {
-    navigation.navigate('productDetail', { product });
+    navigation.navigate("productDetail", { hsn });
   }
 
+
+  const toggleLike = () => {
+    setLiked(!liked); // Toggle the liked state
+   
+  };
+
   return (
-    <TouchableOpacity activeOpacity={0.8} onPress={goToDetail} key={product.id} style={styles.container}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={goToDetail}
+      key={product.id}
+      style={styles.container}
+    >
       <View style={styles.containerLike}>
-        {/* <LikeComponent onLike={() => setLiked(!liked)} liked={liked} /> */}
+ 
+        <TouchableOpacity onPress={toggleLike} activeOpacity={0.7}>
+          <LikeComponent liked={liked} onLike={toggleLike} />
+        </TouchableOpacity>
       </View>
-      <Image resizeMode="cover" style={styles.imageProduct} source={{ uri: product.thumbnail }} />
+      <Image  style={styles.imageProduct} source={{ uri: product.thumbnail }} />
 
       <View style={{ marginTop: normalize(8), padding: normalize(8) }}>
-        <Typography customStyle={styles.nameProduct} value={product.title} />
-        <NameStore store={product.collection} />
-        <Typography customStyle={styles.price} value={`₹${product.price}`} />
+        <Typography
+          customStyle={styles.nameProduct}
+          value={product.title.charAt(0).toUpperCase() + product.title.slice(1)}
+        />
+        <View style={styles.priceReviewContainer}>
+          <Typography customStyle={styles.price} value={`₹${product.price}`} />
+          <View style={styles.reviewContainer}>
+    
+            <Typography customStyle={styles.reviewText} value="4.5 ⭐️ (120 reviews)" />
+          </View>
+        </View>
       </View>
 
-      {/* Loading or Error state */}
-      {loading && <ActivityIndicator size="large" color="#0000ff" />}
-      {error && <Typography customStyle={{ color: 'red' }} value={error} />}
+      {error && <Typography customStyle={{ color: "red" }} value={error} />}
     </TouchableOpacity>
   );
 }

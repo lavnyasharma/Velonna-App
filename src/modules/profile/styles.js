@@ -44,7 +44,7 @@ export const styless = (isDarkMode) => StyleSheet.create({
     fontFamily: FONT.SEMI_BOLD
   },
   titleOption: {
-    fontSize: normalize(16),
+    fontSize: normalize(18),
     fontFamily: FONT.MEDIUM,
   },
   subtitleOption: {

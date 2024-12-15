@@ -7,6 +7,8 @@ import Button from "@/shared/components/buttons/normal";
 import HeaderBack from "@/shared/components/headerBack";
 import { useNavigation } from "@react-navigation/native";
 import useDarkMode from "@/shared/hooks/useDarkMode";
+import { CartProvider } from "@/context/cartContext";
+
 
 export default function Bag() {
   const navigation = useNavigation();
@@ -19,9 +21,9 @@ export default function Bag() {
         <HeaderBack title="Bag" />
 
         <View style={{ marginTop: normalize(15), flex: 1 }}>
+          <CartProvider>
           <ProductHorizontal />
-          <View style={{ marginVertical: 10 }} />
-          <ProductHorizontal />
+          </CartProvider>
         </View>
         <Button onPress={() => navigation.navigate('orderReview')} title="Checkout" />
       </View>

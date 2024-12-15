@@ -23,5 +23,7 @@ export const styless = (isDarkMode) => StyleSheet.create({
     flex: 0.48,
     justifyContent: 'space-between',
     marginTop: normalize(18),
-  }
+  },
+  
+  
 });

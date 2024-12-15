@@ -1,8 +1,8 @@
 export const FONT = {
-  NORMAL: 'Inter-Regular',
-  BOLD: 'Inter-Bold',
-  EXTRA_BOLD: 'Inter-ExtraBold',
-  MEDIUM: 'Inter-Medium',
-  SEMI_BOLD: 'Inter-SemiBold',
-  THIN: 'Inter-Thin',
+  NORMAL: 'Poppins-Regular',
+  BOLD: 'Poppins-Bold',
+  EXTRA_BOLD: 'Poppins-ExtraBold',
+  MEDIUM: 'Poppins-Medium',
+  SEMI_BOLD: 'Poppins-SemiBold',
+  THIN: 'Poppins-Thin',
 };

@@ -1,4 +1,4 @@
-import { Image, ScrollView, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView, Text,TouchableOpacity, View } from "react-native";
 import Balance from "@/shared/components/balance";
 import HeroBackground from "@/shared/components/heroBackground";
 import React, { useEffect, useState } from "react";
@@ -11,7 +11,7 @@ import Button from "@/shared/components/buttons/normal";
 import { NavigationProps } from "@/shared/routes/stack";
 import TitleSection from "@/shared/components/titleSection";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { CartIcon, LogOutIcon, PrivacyPolicy, TermsAndConditionsIcon } from "../home/components/layouts/section";
 export default function Profile({ navigation }) {
   const { isDarkMode } = useDarkMode();
   const styles = styless(isDarkMode);
@@ -20,6 +20,12 @@ export default function Profile({ navigation }) {
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
   const [profileImg, setProfileImg] = useState('');
+  const navigateToTerms = () => {
+    navigation.navigate('TermsAndConditions');
+  };
+  const navigateToCart = () => {
+    navigation.navigate('orderReview');
+  }
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -53,7 +59,7 @@ export default function Profile({ navigation }) {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
-      <HeroBackground height={330}>
+      <HeroBackground height={200}>
         <View style={{ paddingHorizontal: normalize(24) }}>
           <Typography customStyle={styles.titleScreen} value="Profile" />
           <View style={styles.row}>
@@ -68,59 +74,69 @@ export default function Profile({ navigation }) {
               </View>
             </View>
 
-            <TouchableOpacity onPress={() => navigation.navigate('editProfile')}>
-              <Edit width={20} height={20} />
-            </TouchableOpacity>
+          
           </View>
         </View>
-        <Balance />
+
       </HeroBackground>
 
       <View style={styles.body}>
         <TitleSection value="Account Settings" />
-
         <View style={{ marginTop: normalize(20) }}>
           <View style={styles.containerOptions}>
-            <House />
-            <View style={{ marginLeft: normalize(14) }}>
-              <Typography customStyle={styles.titleOption} value="Address Lists" />
-              <Typography customStyle={styles.subtitleOption} value="Set shopping delivery address" />
-            </View>
-          </View>
-          <View style={styles.containerOptions}>
-            <SecuritySafe />
-            <View style={{ marginLeft: normalize(14) }}>
-              <Typography customStyle={styles.titleOption} value="Account Security" />
-              <Typography customStyle={styles.subtitleOption} value="E-Wallet, credit cards, & instant debit registered" />
-            </View>
-          </View>
-          <View style={styles.containerOptions}>
-            <Notification />
-            <View style={{ marginLeft: normalize(14) }}>
-              <Typography customStyle={styles.titleOption} value="Notifications" />
-              <Typography customStyle={styles.subtitleOption} value="Set any kind of notification message" />
-            </View>
-          </View>
-        </View>
+          <CartIcon/>
+            <TouchableOpacity onPress={navigateToCart}>
+      <View style={{ marginLeft: normalize(14) }}>
+        <Typography customStyle={styles.titleOption} value="Cart" />
+      </View>
+    </TouchableOpacity>
 
-        <TitleSection value="About Tuks" />
-        <View style={{ marginTop: normalize(20) }}>
-          <View style={styles.containerOptions}>
-            <Note />
-            <View style={{ marginLeft: normalize(14) }}>
-              <Typography customStyle={styles.titleOption} value="Terms & Conditions" />
-            </View>
           </View>
           <View style={styles.containerOptions}>
-            <Shield />
+          <PrivacyPolicy/>
             <View style={{ marginLeft: normalize(14) }}>
               <Typography customStyle={styles.titleOption} value="Privacy Policy" />
             </View>
           </View>
         </View>
-        <View style={{ marginVertical: normalize(20) }}>
-          <Button title="Logout" isPrimary={false} onPress={handleLogout} />
+      
+
+        <TitleSection value="About Tuks" />
+        <View style={{ marginTop: normalize(20) }}>
+          <View style={styles.containerOptions}>
+          <TermsAndConditionsIcon/>
+            <TouchableOpacity onPress={navigateToTerms}>
+      <View style={{ marginLeft: normalize(14) }}>
+        <Typography customStyle={styles.titleOption} value="Terms & Conditions" />
+      </View>
+    </TouchableOpacity>
+
+          </View>
+          <View style={styles.containerOptions}>
+          <PrivacyPolicy/>
+            <View style={{ marginLeft: normalize(14) }}>
+              <Typography customStyle={styles.titleOption} value="Privacy Policy" />
+            </View>
+          </View>
         </View>
+        <TouchableOpacity 
+  style={{
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 5,
+    backgroundColor: 'transparent',
+    width: '100%',
+  }}
+  onPress={handleLogout}
+>
+  <LogOutIcon style={{ marginRight: 8 }} />
+  <Text style={{ color: 'black', fontSize: 16, textAlign: 'center' }}>Logout</Text>
+</TouchableOpacity>
+
       </View>
     </ScrollView>
   );

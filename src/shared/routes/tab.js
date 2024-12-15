@@ -12,6 +12,7 @@ import {
 import Store from "@/modules/store";
 import WhiteList from "@/modules/whiteList";
 import Profile from "@/modules/profile";
+import SearchResult from "@/modules/home/components/searchResult";
 
 export default [
   {

@@ -9,6 +9,8 @@ import ProductDetail from "@/modules/productDetail";
 import Bag from "@/modules/bag";
 import OrderReview from "@/modules/orderReview";
 import EditProfile from "@/modules/profile/sections/editProfile";
+import TermsAndConditions from "@/Pages/TermsConditions/terms";
+import Coupon from "@/modules/coupons/coupons";
 
 const RoutesStack = [
   {
@@ -20,10 +22,20 @@ const RoutesStack = [
     path: 'onboarding',
     component: Onboarding,
     private: false,
+  },  {
+    path: 'TermsAndConditions',
+    component:   TermsAndConditions,
+    private: false,
   },
+
   {
     path: 'login',
     component: Login,
+    private: false,
+  },
+  {
+    path: 'coupon',
+    component: Coupon,
     private: false,
   },
   {

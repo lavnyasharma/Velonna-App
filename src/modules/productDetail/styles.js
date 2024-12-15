@@ -83,9 +83,13 @@ export const styless = (isDarkMode) => StyleSheet.create({
     marginLeft: normalize(3),
     color: color.neutral.darkGray
   },
-  price: {
+  title:{
     fontSize: normalize(24),
     fontFamily: FONT.BOLD
+  },
+  price: {
+    fontSize: normalize(20),
+    fontFamily: FONT.MEDIUM
   },
   imageStore: {
     width: normalize(50),

@@ -5,7 +5,7 @@ import { FONT } from "@/shared/constans/fonts";
 
 export const styles = StyleSheet.create({
   value: {
-    fontSize: normalize(18),
+    fontSize: normalize(20),
     fontFamily: FONT.SEMI_BOLD
   }
 })

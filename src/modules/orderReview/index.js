@@ -6,6 +6,7 @@ import {
   Platform,
   SafeAreaView,
   ScrollView,
+  Text,
   TouchableOpacity,
   View
 } from "react-native";
@@ -31,13 +32,21 @@ import CloseBtn from "@/shared/components/close";
 import ShippingAddressList from "@/shared/components/shippingAddressList";
 import { AddressDTO } from "@/shared/DTO/AddressDTO";
 import useKeyboard from "@/shared/hooks/useKeyboard";
+import { CartProvider } from "@/context/cartContext";
+import Svg, { Path } from "react-native-svg";
+import { Coupon, Right } from "../home/components/layouts/section";
+import { useNavigation } from "@react-navigation/native";
 
 export default function OrderReview() {
+  const navigation = useNavigation();
   const [openMethodPayment, setOpenMethodPayment] = useState(false);
   const [openAddress, setOpenAddress] = useState(false);
   const [addingAddress, setAddingAddress] = useState(false);
   const { isDarkMode } = useDarkMode();
   const { isKeyboardVisible } = useKeyboard();
+  const handlePress = () => {
+    navigation.navigate('coupon'); 
+  };
 
   const addressList = [
     {
@@ -64,23 +73,18 @@ export default function OrderReview() {
         <HeaderBack title="Order Review" />
 
         <View style={{ marginTop: normalize(24), flex: 1 }}>
-          <ProductHorizontal actions={false} />
-          <View style={{ marginVertical: 10 }} />
-          <ProductHorizontal actions={false} />
-          <View style={{ marginVertical: 10 }} />
-          <ProductHorizontal actions={false} />
+        <CartProvider>
+        <ProductHorizontal actions={true} />
+          </CartProvider>
         </View>
 
-        <View style={{ marginVertical: normalize(24) }}>
-          <Input
-            customStyles={{
-              paddingVertical: normalize(6)
-            }}
-            placeholder="Have a promo code? Enter it!"
-            value=""
-            IconRight={() => <ButtonSmall disabled title="Apply" />}
-          />
-        </View>
+        <TouchableOpacity style={styles.button} onPress={handlePress}>
+      <View style={styles.svgContainer}>
+        <Coupon />
+        <Text style={styles.text}>Apply Coupon</Text>
+      </View>
+     <Right/>
+    </TouchableOpacity>
 
         <View style={styles.containerSummary}>
           <Summary />

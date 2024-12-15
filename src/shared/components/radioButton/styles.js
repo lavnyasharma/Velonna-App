@@ -8,7 +8,7 @@ export const styless = (active) => StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: between ?  'space-between' : 'flex-start'
+    justifyContent: true ?  'space-between' : 'flex-start'
   },
   border: {
     width: normalize(23),

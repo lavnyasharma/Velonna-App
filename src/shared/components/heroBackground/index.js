@@ -4,7 +4,7 @@ import React from "react";
 
 export default function HeroBackground({children, height}) {
   return (
-    <ImageBackground style={{height: height || 400, justifyContent: 'space-evenly'}} source={bgIcon}>
+    <ImageBackground style={{height: height || 300, justifyContent: 'space-evenly'}} source={bgIcon}>
       {children}
     </ImageBackground>
   )

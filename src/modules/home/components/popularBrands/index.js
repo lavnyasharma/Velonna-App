@@ -13,7 +13,7 @@ export default function PopularBrands() {
 
   return (
     <View style={styles.container}>
-      <Typography customStyle={styles.title} value="Popular Collections" />
+      <Typography customStyle={styles.title}  />
 
       <View style={styles.containerList}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>

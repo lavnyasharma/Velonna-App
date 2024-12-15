@@ -2,142 +2,111 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import debounce from 'lodash.debounce';
 
-let shouldRefreshToken = false;  // Set to false to disable token refreshing
+// Configurations
+const BASE_URL = "https://api.velonna.co/";
+const TIMEOUT = 90000;
+let shouldRefreshToken = false; // Flag to enable/disable token refreshing
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-  baseURL: "https://api.velonna.co/",
-  timeout: 10000,  // Adjust timeout as needed
+  baseURL: BASE_URL,
+  timeout: TIMEOUT,
 });
 
-// Function to get JWT access token from AsyncStorage
+// Helper function to get token from AsyncStorage
 const getAccessToken = async () => {
   try {
-    const token = await AsyncStorage.getItem('access_token');
-    return token ? token : null;
+    const token = await AsyncStorage.getItem('accessToken');
+    return token || null;
   } catch (error) {
-    console.error('Error fetching access token from AsyncStorage', error);
+    console.error('Error fetching access token:', error);
     return null;
   }
 };
 
-// Function to refresh the access token using refresh token
-const refreshAccessToken = async () => {
-  try {
-    const refreshToken = await AsyncStorage.getItem('refreshToken');
-    if (!refreshToken) {
-      throw new Error('No refresh token found');
-    }
-
-    const response = await axios.post(REFRESH_TOKEN_API, { refresh_token: refreshToken });
-
-    if (response && response.data && response.data.access_token) {
-      const newAccessToken = response.data.access_token;
-      await AsyncStorage.setItem('accessToken', newAccessToken);
-      return newAccessToken;
-    } else {
-      await AsyncStorage.removeItem("accessToken")
-      await AsyncStorage.removeItem("refreshToken")
-      throw new Error('Failed to refresh access token');
-    }
-  } catch (error) {
-    console.error('Error refreshing access token', error);
-    throw error;
-  }
-};
-
-// Axios Request Interceptor
-axiosInstance.interceptors.request.use(
-  async (config) => {
-    const accessToken = await getAccessToken();
-
-    if (accessToken) {
-      config.headers['Authorization'] = `Bearer ${accessToken}`;
-    }
-
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
-// Axios Response Interceptor to handle 401 errors and token refresh
-axiosInstance.interceptors.response.use(
-  response => response,  // Successful responses (status 2xx) will pass through
-  async (error) => {
-    const { config, response } = error;
-
-    if (response && response.status === 401 && shouldRefreshToken) {
-      // Token refresh logic on 401 Unauthorized error
-      try {
-        // Prevent multiple requests to refresh the token
-        shouldRefreshToken = false;
-
-        const newAccessToken = await refreshAccessToken();
-
-        // Update the original request with the new access token
-        config.headers['Authorization'] = `Bearer ${newAccessToken}`;
-
-        // Retry the original request with the new token
-        return axiosInstance(config);
-      } catch (refreshError) {
-        // Handle error if token refresh fails
-        console.error('Token refresh failed', refreshError);
-        return Promise.reject(refreshError);
-      } finally {
-        shouldRefreshToken = true;  // Reset the flag
-      }
-    }
-
-    return Promise.reject(error);  // Pass other errors as is
-  }
-);
-
-// Function to toggle the token refresh behavior on/off
-const toggleTokenRefresh = (status) => {
-  shouldRefreshToken = status;
-};
-
-// Function to store tokens in AsyncStorage
+// Helper function to store tokens in AsyncStorage
 const storeTokens = async (accessToken, refreshToken) => {
   try {
-    await AsyncStorage.setItem('accessToken', accessToken);
-    await AsyncStorage.setItem('refreshToken', refreshToken);
+    if (accessToken) await AsyncStorage.setItem('accessToken', accessToken);
+    if (refreshToken) await AsyncStorage.setItem('refreshToken', refreshToken);
   } catch (error) {
     console.error('Error storing tokens:', error);
   }
 };
 
-// Function to get user information
-const getUserInfo = async (username) => {
+// Function to refresh the access token
+const refreshAccessToken = async () => {
   try {
-    const accessToken = await AsyncStorage.getItem('accessToken');
+    const refreshToken = await AsyncStorage.getItem('refreshToken');
+    if (!refreshToken) throw new Error('No refresh token available');
 
-    const response = await axiosInstance.get(`/user/${username}/`, {
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'X-CSRFToken': 'e05pwgcOgk1SAFpt9KY794DSigMrfVK19O4zIHezlvULyIy4ia9W8nIcSSG7wZdO'
-      },
-    });
+    const response = await axios.post(`${BASE_URL}/refresh-token/`, { refresh_token: refreshToken });
+    const { access_token: newAccessToken } = response.data || {};
 
-    return response.data;
+    if (newAccessToken) {
+      await storeTokens(newAccessToken, refreshToken);
+      return newAccessToken;
+    } else {
+      throw new Error('Failed to refresh access token');
+    }
   } catch (error) {
-    console.error('Error fetching user info:', error);
-    throw error; // Optionally re-throw the error for further handling
+    console.error('Error refreshing token:', error);
+    await AsyncStorage.multiRemove(['accessToken', 'refreshToken']);
+    throw error;
   }
 };
 
-const fetchProductList = async (page = 1, limit = 10) => {
-  try {
-    const accessToken = await AsyncStorage.getItem('accessToken');
-    const response = await axiosInstance.get(`/product-lists/`, {
-      params: { page, limit },
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'X-CSRFToken': 't59kNMaGLn9lff4ZFakCmGxCTnTcEUX20iEyNzv3iCkDaDwpWAtlHhaXEQY9f1gs',
-        'accept': 'application/json'
-      },
-    });
+// Axios request interceptor for adding Authorization and Content-Type headers
+axiosInstance.interceptors.request.use(
+  async (config) => {
+    const accessToken = await getAccessToken();
+    if (accessToken) config.headers['Authorization'] = `Bearer ${accessToken}`;
+    config.headers['Content-Type'] = 'application/json'; // Ensure Content-Type is application/json
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
+// Axios response interceptor to handle 401 errors and token refresh
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const { config, response } = error;
+
+    if (response?.status === 401 && shouldRefreshToken) {
+      shouldRefreshToken = false;
+      try {
+        const newAccessToken = await refreshAccessToken();
+        config.headers['Authorization'] = `Bearer ${newAccessToken}`;
+        return axiosInstance(config);
+      } catch (refreshError) {
+        console.error('Token refresh failed:', refreshError);
+        throw refreshError;
+      } finally {
+        shouldRefreshToken = true;
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);
+
+// API Functions
+export const getUserInfo = async (username) => {
+  try {
+    const response = await axiosInstance.get(`/user/${username}/`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user info:', error);
+    throw error;
+  }
+};
+
+export const fetchProductList = async (page = 1, limit = 10) => {
+  try {
+    const response = await axiosInstance.get(`/ecom/product/list/`, {
+      params: { page, limit },
+    });
     return response.data;
   } catch (error) {
     console.error('Error fetching product list:', error);
@@ -145,31 +114,67 @@ const fetchProductList = async (page = 1, limit = 10) => {
   }
 };
 
-// Function to add product to the cart
-const addToCart = async (productId, quantity) => {
+export const addToCart = async (productId, quantity) => {
   try {
-    const accessToken = await AsyncStorage.getItem('accessToken');
-    const data = {
-      product: productId,
-      quantity: quantity.toString(),  // Ensure quantity is a string
-    };
-
-    const response = await axiosInstance.post('/cart/', data, {
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json',
-        'X-CSRFToken': 't59kNMaGLn9lff4ZFakCmGxCTnTcEUX20iEyNzv3iCkDaDwpWAtlHhaXEQY9f1gs',
-      
-      },
-    });
-
-    return response.data;  // Return the response from the API
+    const data = { product: productId, quantity: String(quantity) };
+    const response = await axiosInstance.post('/cart/', data);
+    return response.data;
   } catch (error) {
     console.error('Error adding product to cart:', error);
-    throw error;  // Optionally, re-throw the error to be handled by the caller
+    throw error;
+  }
+};
+export const getDetailsByHSn = async (hsn) => {
+  
+  try {
+    const response = await axiosInstance.get(`/product/${hsn}/details`); 
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching details by HSN:', error);
+    throw error;
   }
 };
 
-// Export the instance and the functions
-export { axiosInstance, storeTokens, getUserInfo, fetchProductList, addToCart };
+
+
+export const getCart = async () => {
+  try {
+    const response = await axiosInstance.get('/cart/details/');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching cart:', error);
+    throw error;
+  }
+};
+export const deleteFromCart = async (cartItemId) => {
+  try {
+    const response = await axiosInstance.delete(`cart-item/${cartItemId}/`);
+    console.log(response)
+    console.log(response.status)
+    if (!response || response.status === 204) {
+       console.log(response)
+       console.log(response.status)
+      console.log('Item successfully deleted');
+      return {}; // Return an empty object or handle it in the caller
+    }
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      console.error('Server responded with error:', error.response.data);
+    } else if (error.request) {
+      console.error('No response received:', error.request);
+    } else {
+      console.error('Error setting up request:', error.message);
+    }
+    throw error;
+  }
+};
+
+
+
+// Utility function to toggle token refresh behavior
+export const toggleTokenRefresh = (status) => {
+  shouldRefreshToken = status;
+};
+
+export { axiosInstance, storeTokens };

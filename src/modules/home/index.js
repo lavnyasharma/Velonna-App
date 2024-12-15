@@ -42,7 +42,7 @@ export default function Home({ navigation }) {
   }, []); 
 
   function goToBag() {
-    navigation.navigate('bag');
+    navigation.navigate('orderReview');
   }
 
   return (
@@ -55,7 +55,7 @@ export default function Home({ navigation }) {
       >
         <HeroBackground>
           <NavBar goToBag={goToBag} openSearch={() => setIsOpen(!isOpen)} />
-          <Balance />
+          {/* <Balance /> */}
           <PopularBrands />
         </HeroBackground>
         <View style={styles.body}>
