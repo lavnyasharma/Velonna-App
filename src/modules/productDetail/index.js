@@ -18,11 +18,10 @@ import { styless } from "./styles";
 import { addToCart, getDetailsByHSn } from "@/apis";
 import { useCart } from "@/context/cartContext";
 import ProductImageCarousel from "../home/components/ProductImageCarousel";
+import { formatCurrency } from "@/shared/helpers";
 
 export default function ProductDetail({ route }) {
-  const formatPrice = (price) => {
-    return Number(price)?.toLocaleString('en-IN');
-  };
+  
   function formatTitle(title) {
     if (!title) return ""; // Handle empty or undefined input
 
@@ -116,15 +115,15 @@ export default function ProductDetail({ route }) {
           <View style={styles.containerInnerHeader}>
             <View style={styles.row}>
               <Star />
-              <Typography customStyle={styles.star} value="5.0" />
-              <Typography customStyle={styles.countReviews} value="(199)" />
+              <Typography customStyle={styles.star} value="0" />
+              <Typography customStyle={styles.countReviews} value="(0)" />
             </View>
             <Share />
           </View>
 
           {/* Product Title */}
-          <Typography customStyle={ styles.title} value={formatTitle(product?.title)} />
-          <Typography customStyle={styles.price} value={formatPrice(product?.price)} />
+          <Typography customStyle={ styles.title} value={(formatTitle(product?.title))} />
+          <Typography customStyle={styles.price} value={product && formatCurrency(product?.price)} />
 
           {/* Add to Bag and Buy Now buttons */}
           <View style={{ marginTop: 24 }}>

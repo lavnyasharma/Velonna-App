@@ -49,9 +49,8 @@ export default function ProductList({ products, rows }) {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            marginTop: normalize(18),
             alignItems: 'center',
-            flex: 0.48
+            flex: 1
           }}
         >
           {chunk.map((item) => (

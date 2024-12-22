@@ -7,18 +7,17 @@ export default function ProductSkeleton() {
       style={{
         width: '48%',
         height: 250,
-       
-        borderRadius: 8,
-        marginBottom: normalize(18),
+      
+        margin: normalize(5),
       }}
     >
       {/* Skeleton for image */}
       <View
         style={{
           width: '100%',
-          height: '60%',
+          height: '70%',
           backgroundColor: '#ccc',
-          borderRadius: 8,
+      
         }}
       />
 
@@ -26,7 +25,7 @@ export default function ProductSkeleton() {
       <View
         style={{
           marginTop: normalize(8),
-          padding: normalize(8),
+          padding: normalize(16),
         }}
       >
         <View
@@ -34,8 +33,8 @@ export default function ProductSkeleton() {
             backgroundColor: '#ccc',
             height: normalize(14),
             marginBottom: normalize(6),
-            borderRadius: 4,
-            width: '60%',
+
+            width: '50%',
           }}
         />
         <View
@@ -43,8 +42,8 @@ export default function ProductSkeleton() {
             backgroundColor: '#ccc',
             height: normalize(14),
             marginBottom: normalize(6),
-            borderRadius: 4,
-            width: '40%',
+          
+            width: '50%',
           }}
         />
       </View>

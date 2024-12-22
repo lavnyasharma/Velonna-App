@@ -21,3 +21,12 @@ export function createRows(array, size) {
   }
   return chunkedArray;
 }
+
+
+export function formatCurrency(amount) {
+  if (isNaN(amount)) {
+      throw new Error("Input must be a valid number.");
+  }
+  
+  return `₹${Number(amount).toLocaleString('en-IN')}`;
+}

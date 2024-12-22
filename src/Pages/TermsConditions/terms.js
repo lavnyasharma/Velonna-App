@@ -2,7 +2,7 @@ import BackBtn from '@/shared/components/backBtn';
 import useDarkMode from '@/shared/hooks/useDarkMode';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { ScrollView, Text, View, StyleSheet } from 'react-native';
+import { ScrollView, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { styless } from './styles';
 

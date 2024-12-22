@@ -32,12 +32,14 @@ import CloseBtn from "@/shared/components/close";
 import ShippingAddressList from "@/shared/components/shippingAddressList";
 import { AddressDTO } from "@/shared/DTO/AddressDTO";
 import useKeyboard from "@/shared/hooks/useKeyboard";
-import { CartProvider } from "@/context/cartContext";
+import { CartProvider, useCart } from "@/context/cartContext";
 import Svg, { Path } from "react-native-svg";
 import { Coupon, Right } from "../home/components/layouts/section";
 import { useNavigation } from "@react-navigation/native";
 
 export default function OrderReview() {
+  const {cart} = useCart();
+  console.log(cart)
   const navigation = useNavigation();
   const [openMethodPayment, setOpenMethodPayment] = useState(false);
   const [openAddress, setOpenAddress] = useState(false);
@@ -94,7 +96,16 @@ export default function OrderReview() {
         </View>
 
         <View style={{ marginTop: normalize(24) }}>
-          <Button title="Checkout $223.94" />
+
+        <View style={styles.priceContainer}>
+  <Typography customStyle={styles.textTotal} value="Checkout" />
+  <View>
+    <Typography
+      customStyle={styles.price}
+      value={`₹${(cart?.total ? cart.total * 1.03 : 0).toFixed(2)}`}
+    />
+  </View>
+</View>
         </View>
       </ScrollView>
 

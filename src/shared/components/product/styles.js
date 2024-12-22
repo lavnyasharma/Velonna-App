@@ -1,12 +1,12 @@
 import { StyleSheet } from "react-native";
 import { normalize } from "@/shared/helpers";
 import color from "@/shared/constans/colors";
-import { FONT } from "@/shared/constans/fonts";
+import { FONT, FONT3 } from "@/shared/constans/fonts";
 
 
 export const styless = (isDarkMode) => StyleSheet.create({
   container: {
-    flex: 0.48,
+    flex: 1,
     position: 'relative',
     padding: normalize(4),
     backgroundColor: isDarkMode ? color.neutral.gray : color.neutral.white,
@@ -19,7 +19,6 @@ export const styless = (isDarkMode) => StyleSheet.create({
     shadowRadius: 12.35,
 
     elevation: 10,
-    borderRadius: normalize(12),
    
   },
   skeletonBackground: {
@@ -37,7 +36,14 @@ export const styless = (isDarkMode) => StyleSheet.create({
     justifyContent: "space-between",
   },
   reviewContainer: {
+    position:"absolute",
+    backgroundColor:"#fff",
+    
     flexDirection: "row",
+    padding:5,
+    bottom:105,
+    borderRadius:2,
+    left:10,
     alignItems: "center",
   },
   starIcon: {
@@ -54,17 +60,37 @@ export const styless = (isDarkMode) => StyleSheet.create({
     top: normalize(1),
     right: normalize(1),
   },
-  imageProduct: {
-    borderRadius: normalize(12),
-   
+  imageProduct: { 
     flex: 1,
-   
     aspectRatio:1/1
   },
   nameProduct: {
     color: isDarkMode ? color.neutral.white : color.neutral.black,
-    fontSize: normalize(14),
-  },
+    fontFamily: FONT.MEDIUM,
+    fontSize: normalize(18),
+    width: '100%',          // Set the width to 80%
+    overflow: 'hidden',    // Ensure content doesn't overflow
+    textOverflow: 'ellipsis', // Add ellipses for overflow
+    whiteSpace: 'nowrap',  // Prevent text wrapping
+},
+nameCollection: {
+  color: isDarkMode ? color.neutral.white : color.neutral.black,
+  fontFamily: FONT3.MEDIUM,
+  fontSize: normalize(15),
+  width: '100%',          // Set the width to 80%
+  overflow: 'hidden',    // Ensure content doesn't overflow
+  textOverflow: 'ellipsis', // Add ellipses for overflow
+  whiteSpace: 'nowrap',  // Prevent text wrapping
+},
+nameCategory: {
+  color: isDarkMode ? color.neutral.white : color.neutral.black,
+  fontFamily: FONT3.MEDIUM,
+  fontSize: normalize(15),
+  width: '100%',          // Set the width to 80%
+  overflow: 'hidden',    // Ensure content doesn't overflow
+  textOverflow: 'ellipsis', // Add ellipses for overflow
+  whiteSpace: 'nowrap',  // Prevent text wrapping
+},
   containerNameStore: {
     flexDirection: 'row',
     alignItems: 'center',

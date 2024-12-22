@@ -23,14 +23,14 @@ export default [
     iconActive: HomeActive,
     component: Home
   },
-  {
-    id: '2',
-    displayName: 'Store',
-    name: 'store',
-    icon: StoreIcon,
-    iconActive: StoreActive,
-    component: Store
-  },
+  // {
+  //   id: '2',
+  //   displayName: 'Store',
+  //   name: 'store',
+  //   icon: StoreIcon,
+  //   iconActive: StoreActive,
+  //   component: Store
+  // },
   {
     id: '3',
     displayName: 'WishList',

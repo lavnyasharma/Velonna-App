@@ -6,8 +6,8 @@ import { FONT } from "@/shared/constans/fonts";
 export const styless = (isDarkMode) => StyleSheet.create({
   containerFilter: {
     borderWidth: 1,
-    paddingVertical: normalize(12),
-    paddingHorizontal: normalize(16),
+    padding:10,
+
     borderRadius: normalize(12),
     borderColor: color.stroke.gray,
     marginRight: normalize(10),

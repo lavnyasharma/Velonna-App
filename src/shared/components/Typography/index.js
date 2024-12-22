@@ -7,11 +7,12 @@ export default function Typography({
   value,
   customStyle,
   onPress,
+  numberOfLines
 }) {
   const { isDarkMode } = useDarkMode();
 
   const styles = styless(isDarkMode);
   return (
-    <Text onPress={onPress} style={[styles.text, customStyle]}>{value}</Text>
+    <Text onPress={onPress} numberOfLines={numberOfLines} style={[styles.text, customStyle]}>{value}</Text>
   );
 }

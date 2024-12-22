@@ -28,9 +28,7 @@ export default function BrandsAndCategories({ setChange }) {
 
   return (
     <View style={styles.container}>
-      <Typography customStyle={styles.titleSection} value="Popular Search" />
-
-      <View style={{ marginVertical: normalize(16) }}>
+      {/* <View style={{ marginVertical: normalize(16) }}>
         {createRows(brands, 4).sort(() => Math.random() - 0.5).map((chunk, index) => (
           <View key={index} style={styles.containerBrands}>
             {chunk.map((brand) => (
@@ -38,7 +36,7 @@ export default function BrandsAndCategories({ setChange }) {
             ))}
           </View>
         ))}
-      </View>
+      </View> */}
 
       <Typography customStyle={styles.titleSection} value="Top Categories" />
 

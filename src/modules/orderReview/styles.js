@@ -3,7 +3,7 @@ import { normalize } from "@/shared/helpers";
 import color from "@/shared/constans/colors";
 import { FONT } from "@/shared/constans/fonts";
 
-export const styless = (isDarkMode) => StyleSheet.create({
+export const styless = ({disabled, isPrimary,isDarkMode}) => StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: normalize(24),
@@ -62,5 +62,28 @@ export const styless = (isDarkMode) => StyleSheet.create({
     fontSize: normalize(16),
     color: '#000',
   },
+  priceContainer:{
+    fontSize: normalize(20),
+    flex:1,
+    alignItems:"center",
+    justifyContent:"center",
+    flexDirection:'row',
+    gap:10,
+    backgroundColor: "#000",
+    padding: normalize(12),
+    borderRadius: normalize(12),
+    height: normalize(56),
+    justifyContent: 'center',
+    borderColor: !isPrimary ? color.stroke.gray : color.neutral.white,
+    borderWidth: !isPrimary ? 1 : 0,
+  },
+  textTotal:{
+    fontSize: normalize(20),
+    color:"#fff",
+  },
+  price:{
+    color:"#fff",
+    fontSize: normalize(20),
+  }
 });
 

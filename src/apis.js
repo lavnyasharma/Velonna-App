@@ -102,7 +102,7 @@ export const getUserInfo = async (username) => {
   }
 };
 
-export const fetchProductList = async (page = 1, limit = 10) => {
+export const fetchProductList = async (page = 1, limit = 21) => {
   try {
     const response = await axiosInstance.get(`/ecom/product/list/`, {
       params: { page, limit },

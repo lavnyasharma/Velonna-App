@@ -79,7 +79,7 @@ export const ChevronRightIcon = ({ size = 18, style }) => (
 export const PrivacyPolicy = ({ size = 18, style }) => (
   <FontAwesomeIcon icon={faShield} size={size} style={style} />
 );
-export const DeleteButton = ({ size = 18, style }) => (
+export const DeleteButton = ({ size = 16, style }) => (
   <FontAwesomeIcon icon={faTrashCan} size={size} style={style} />
 );
 export const Cross = ({ size = 18, style }) => (

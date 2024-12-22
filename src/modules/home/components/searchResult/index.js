@@ -1,6 +1,6 @@
 import Typography from "@/shared/components/Typography";
 import React, { useState } from "react";
-import { Dimensions, ScrollView, TouchableOpacity, View } from "react-native";
+import { Dimensions, ScrollView,Text, TouchableOpacity, View } from "react-native";
 import { Setting, Dollar } from "@/shared/assets/icons";
 import { styless } from './styles';
 import { createRows, normalize } from "@/shared/helpers";
@@ -14,7 +14,7 @@ import useDarkMode from "@/shared/hooks/useDarkMode";
 import CloseBtn from "@/shared/components/close";
 import { categoriesDefault, products, sortByDefault } from "@/shared/constans/mockup";
 
-export default function SearchResult() {
+export default function SearchResult({data}) {
   const [sortBy] = useState(sortByDefault);
   const [categories] = useState(categoriesDefault);
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +23,7 @@ export default function SearchResult() {
 
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView showsVerticalScrollIndicator={false} style={{ marginTop: normalize(12), flex: 1, paddingHorizontal: normalize(20) }}>
+      <ScrollView showsVerticalScrollIndicator={false} style={{ marginTop: normalize(12), flex: 1, paddingHorizontal: normalize(4) }}>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -45,13 +45,13 @@ export default function SearchResult() {
         <Typography customStyle={styles.titleSection} value="Search Results" />
 
         <View style={{ flex: 1 }}>
-          {createRows(products, 2).map((chunk, index) => (
+          {data.length !== 0?createRows(data, 2).map((chunk, index) => (
             <View key={index} style={styles.row}>
               {chunk.map((item) => (
                 <Product key={item.id} product={item} />
               ))}
             </View>
-          ))}
+          )):<Text>No Product Found</Text>}
         </View>
       </ScrollView>
       <ButtonSheet height={Dimensions.get('window').height * 0.6} dispatch={isOpen}>

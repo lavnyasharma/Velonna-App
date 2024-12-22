@@ -9,21 +9,14 @@ export const styless = (isDarkMode) =>
       flexDirection: "row",
       padding: 10,
       backgroundColor: isDarkMode ? "#333" : "#fff",
-      backgroundColor: isDarkMode ? color.neutral.gray : color.neutral.white,
-      shadowColor: "#ccc",
-      shadowOffset: {
-      width: 0,
-      height: 9,
-      },
-      shadowOpacity: 0.50,
-      shadowRadius: 12.35,
-  
-      elevation: 10,
+      // backgroundColor: isDarkMode ? color.neutral.gray : color.neutral.white,
+   
       borderRadius: normalize(12),
       width: "98%",
       alignSelf: "center",
       flex: 1,
-      marginBottom:10
+      marginBottom:10,
+     
     },
     listContainer: {
       backgroundColor: isDarkMode ? "#121212" : "#ffffff",
@@ -33,16 +26,8 @@ export const styless = (isDarkMode) =>
       padding: 10,
       backgroundColor: isDarkMode ? "#333" : "#fff",
      
-      backgroundColor: isDarkMode ? color.neutral.gray : color.neutral.white,
-      shadowColor: "#ccc",
-      shadowOffset: {
-      width: 0,
-      height: 9,
-      },
-      shadowOpacity: 0.50,
-      shadowRadius: 12.35,
-  
-      elevation: 10,
+      // backgroundColor: isDarkMode ? color.neutral.gray : color.neutral.white,
+   
       borderRadius: normalize(12),
       width: "98%",
       alignSelf: "center",
@@ -117,12 +102,12 @@ export const styless = (isDarkMode) =>
       fontWeight: "bold",
     },
     collection: {
-      flex: 1,
+     
       fontSize: normalize(14),
       fontFamily: FONT.NORMAL,
     },
     dataConatiner: {
-      
+      gap:5,
       marginLeft: 10,
       flex: 2,
     },
@@ -133,8 +118,13 @@ export const styless = (isDarkMode) =>
     },
     price: {
       flexDirection: "row",
-      alignItems: "center", // Ensure alignment
-      
+      alignItems: "center", 
+      justifyContent: "space-between", 
+    },
+    
+    cont:{
+      flexDirection: "row",
+      alignItems: "center",
     },
     priced: {
       fontSize: normalize(12),
@@ -152,8 +142,11 @@ export const styless = (isDarkMode) =>
       alignItems: "center",
       marginRight: 10,
     },
+    delete:{
+
+    },
     category:{
-      flex: 1,
+ 
      
       size:{
         fontSize: normalize(12),
