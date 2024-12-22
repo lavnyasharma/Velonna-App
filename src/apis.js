@@ -114,6 +114,15 @@ export const fetchProductList = async (page = 1, limit = 21) => {
   }
 };
 
+export const getCollection = async () => {
+  try {
+    const response = await axiosInstance.get('/live-collections/');
+    return response;
+  } catch (error) {
+    console.error('Error fetching cart:', error);
+    throw error;
+  }
+};
 export const addToCart = async (productId, quantity) => {
   try {
     const data = { product: productId, quantity: String(quantity) };

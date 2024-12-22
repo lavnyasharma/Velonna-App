@@ -78,7 +78,7 @@ export default function Home({ navigation, openSearch }) {
             <SearchBar openSearch={() => setIsOpen(!isOpen)} />
           </View>
 
-          {/* <CategoriesSlider title={"Catagories"}/> */}
+          <CategoriesSlider title={"Catagories"}/>
 
           <ImageSlider images={images} />
           {/* <SliderAds /> */}

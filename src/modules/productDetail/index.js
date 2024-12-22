@@ -125,6 +125,7 @@ export default function ProductDetail({ route }) {
           <Typography customStyle={ styles.title} value={(formatTitle(product?.title))} />
           <Typography customStyle={styles.price} value={product && formatCurrency(product?.price)} />
 
+
           {/* Add to Bag and Buy Now buttons */}
           <View style={{ marginTop: 24 }}>
             {!addedToCart ? (
@@ -144,6 +145,7 @@ export default function ProductDetail({ route }) {
               </Animated.View>
             )}
           </View>
+          {/* <Typography customStyle={styles.price} value={product?.description} /> */}
         </View>
       </ScrollView>
     </SafeAreaView>

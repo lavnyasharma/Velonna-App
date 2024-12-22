@@ -31,7 +31,7 @@ export default function Login({ navigation }) {
     const [rememberMe, setRememberMe] = useState(false);
     const [error, setError] = useState('');
     const handleLogin = async () => {
-        alert(1)
+ 
 
         console.log('Attempting to log in with:');
         console.log('Username:', username);

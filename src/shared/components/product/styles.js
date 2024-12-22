@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { normalize } from "@/shared/helpers";
 import color from "@/shared/constans/colors";
-import { FONT, FONT3 } from "@/shared/constans/fonts";
+import { FONT } from "@/shared/constans/fonts";
 
 
 export const styless = (isDarkMode) => StyleSheet.create({
@@ -41,7 +41,7 @@ export const styless = (isDarkMode) => StyleSheet.create({
     
     flexDirection: "row",
     padding:5,
-    bottom:105,
+    bottom:110,
     borderRadius:2,
     left:10,
     alignItems: "center",
@@ -75,7 +75,7 @@ export const styless = (isDarkMode) => StyleSheet.create({
 },
 nameCollection: {
   color: isDarkMode ? color.neutral.white : color.neutral.black,
-  fontFamily: FONT3.MEDIUM,
+  fontFamily: FONT.MEDIUM,
   fontSize: normalize(15),
   width: '100%',          // Set the width to 80%
   overflow: 'hidden',    // Ensure content doesn't overflow
@@ -84,7 +84,7 @@ nameCollection: {
 },
 nameCategory: {
   color: isDarkMode ? color.neutral.white : color.neutral.black,
-  fontFamily: FONT3.MEDIUM,
+  fontFamily: FONT.MEDIUM,
   fontSize: normalize(15),
   width: '100%',          // Set the width to 80%
   overflow: 'hidden',    // Ensure content doesn't overflow
