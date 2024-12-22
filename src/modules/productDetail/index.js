@@ -19,17 +19,18 @@ import { addToCart, getDetailsByHSn } from "@/apis";
 import { useCart } from "@/context/cartContext";
 import ProductImageCarousel from "../home/components/ProductImageCarousel";
 import { formatCurrency } from "@/shared/helpers";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ProductDetail({ route }) {
-  
   function formatTitle(title) {
     if (!title) return ""; // Handle empty or undefined input
 
     return title
-        .split(" ") // Split the string into an array of words
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize each word
-        .join(" "); // Join the words back into a single string
-}
+      .split(" ") // Split the string into an array of words
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize each word
+      .join(" "); // Join the words back into a single string
+  }
+
   const navigation = useNavigation();
   const { isDarkMode } = useDarkMode();
   const { cart } = useCart();
@@ -74,6 +75,15 @@ export default function ProductDetail({ route }) {
   }, [cart, product]);
 
   const handleAddToCart = async () => {
+    const accessToken = await AsyncStorage.getItem("accessToken");
+
+    if (!accessToken) {
+      // If access token doesn't exist, navigate to the login screen
+      navigation.navigate("login");
+      return;
+    }
+
+    // Proceed with adding the product to the cart
     setIsLoading(true);
     try {
       await addToCart(product.hsn, 1);
@@ -84,7 +94,6 @@ export default function ProductDetail({ route }) {
         useNativeDriver: true,
       }).start();
     } catch (error) {
-      // Alert.alert("Error", "Failed to add product to cart");
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -122,9 +131,8 @@ export default function ProductDetail({ route }) {
           </View>
 
           {/* Product Title */}
-          <Typography customStyle={ styles.title} value={(formatTitle(product?.title))} />
+          <Typography customStyle={styles.title} value={formatTitle(product?.title)} />
           <Typography customStyle={styles.price} value={product && formatCurrency(product?.price)} />
-
 
           {/* Add to Bag and Buy Now buttons */}
           <View style={{ marginTop: 24 }}>
@@ -145,7 +153,6 @@ export default function ProductDetail({ route }) {
               </Animated.View>
             )}
           </View>
-          {/* <Typography customStyle={styles.price} value={product?.description} /> */}
         </View>
       </ScrollView>
     </SafeAreaView>
