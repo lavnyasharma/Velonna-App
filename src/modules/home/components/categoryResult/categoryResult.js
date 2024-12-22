@@ -7,7 +7,7 @@ import BackBtn from '@/shared/components/backBtn';
 import LikeComponent from '@/shared/components/like';
 import SearchBar from '../navBar/searchBar';
 
-const CategoryResult = ({openSearch}) => {
+const CategoryResult = ({}) => {
       const [isOpen, setIsOpen] = useState(false);
   const route = useRoute();
   const { categoryId } = route.params;
@@ -43,7 +43,7 @@ const CategoryResult = ({openSearch}) => {
         <TouchableOpacity style={styles.btnBack} onPress={() => navigation.goBack()}>
           <BackBtn />
         </TouchableOpacity>
-        <LikeComponent onLike={() => undefined} liked={false} />
+        {/* <LikeComponent onLike={() => undefined} liked={false} /> */}
       </View>
       <View style={styles.searchBar}>
             <SearchBar openSearch={() => setIsOpen(!isOpen)} />

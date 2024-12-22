@@ -8,6 +8,7 @@ import { Menu, MenuItem } from "react-native-material-menu"; // A library for me
 import { useCart } from "@/context/cartContext";
 import LineBreak from "@/modules/home/components/layouts/lineBreak";
 import { DeleteButton } from "@/modules/home/components/layouts/section";
+import LottieView from 'lottie-react-native'; // Import LottieView
 
 export default function ProductHorizontal({ actions = true }) {
   const { isDarkMode } = useDarkMode();
@@ -136,7 +137,13 @@ export default function ProductHorizontal({ actions = true }) {
         />
       ) : (
         <View style={styles.emptyCart}>
-          <Text style={styles.emptyCartText}>Your cart is empty</Text>
+          {/* Render Lottie animation when cart is empty */}
+          <LottieView
+            source={require('@/animation/emptyCart.json')} // Replace with your emptyCart animation file path
+            autoPlay
+            loop
+            style={styles.lottie}
+          />
         </View>
       )}
     </View>

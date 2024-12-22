@@ -18,6 +18,11 @@ export const styless = (isDarkMode) =>
       marginBottom:10,
      
     },
+    lottie: {
+      width: 200,
+      height: 200,
+      alignSelf: 'center', // Center the animation
+    },
     listContainer: {
       backgroundColor: isDarkMode ? "#121212" : "#ffffff",
     },
