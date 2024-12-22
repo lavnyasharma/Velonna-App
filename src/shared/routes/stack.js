@@ -11,6 +11,7 @@ import OrderReview from "@/modules/orderReview";
 import EditProfile from "@/modules/profile/sections/editProfile";
 import TermsAndConditions from "@/Pages/TermsConditions/terms";
 import Coupon from "@/modules/coupons/coupons";
+import CategoryResult from "@/modules/home/components/categoryResult/categoryResult";
 
 const RoutesStack = [
   {
@@ -36,6 +37,11 @@ const RoutesStack = [
   {
     path: 'coupon',
     component: Coupon,
+    private: false,
+  },
+  {
+    path: 'CategoryResult',
+    component: CategoryResult,
     private: false,
   },
   {

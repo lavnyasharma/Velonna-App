@@ -1,35 +1,41 @@
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import globalStyles from "@/layouts/globalStyles";
 import { FONT } from "../constans/fonts";
 import { getCollection } from "@/apis";
-  // Adjust this import path if necessary
+import { useNavigation } from '@react-navigation/native'; // Import React Navigation
 
-const IconAndSubtitleContainer = ({ title, icon }) => {
+const IconAndSubtitleContainer = ({ title, icon, onPress }) => {
   return (
-    <View style={style.scrollContainer.categoryBox}>
+    <TouchableOpacity 
+      onPress={onPress} 
+      style={style.scrollContainer.categoryBox}
+      activeOpacity={0.7} // Adds activeOpacity to ensure the click is responsive
+    >
       <View style={style.scrollContainer.categoryBox.categoryBoxIcon}>
-        <Image source={{ uri: icon }} style={{ width: '100%', height: '100%', borderRadius: 16 }} />
+        <Image source={{ uri: icon }} style={{ width: '100%', height: '100%' }} />
       </View>
       <Text numberOfLines={1} style={style.scrollContainer.categoryBox.categoryBoxText}>
         {formatTitle(title)}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 };
+
 function formatTitle(title) {
   if (!title) return ""; // Handle empty or undefined input
 
   return title
-      .split(" ") // Split the string into an array of words
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize each word
-      .join(" "); // Join the words back into a single string
+    .split(" ") // Split the string into an array of words
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize each word
+    .join(" "); // Join the words back into a single string
 }
 
 export default function CategoriesSlider({ title, customStyle = { marginTop: 0 }, categoryData, enableSelect }) {
   const [selected, setSelected] = useState();
   const [categories, setCategories] = useState([]); // State to hold the fetched categories
+  const navigation = useNavigation(); // Use the navigation hook
 
   // Fetch category data when the component mounts
   useEffect(() => {
@@ -46,6 +52,12 @@ export default function CategoriesSlider({ title, customStyle = { marginTop: 0 }
     fetchCategories();  // Call the function to fetch data
   }, []);  // Empty dependency array to run the effect once when the component mounts
 
+  const handleCategoryPress = (categoryId) => {
+  
+    // Navigate to the CategoryResult screen and pass the category ID
+    navigation.navigate('CategoryResult', { categoryId });
+  };
+
   return (
     <View style={[style.container, customStyle]}>
       {title ? (
@@ -55,7 +67,6 @@ export default function CategoriesSlider({ title, customStyle = { marginTop: 0 }
       ) : null}
       <View style={style.scrollContainer}>
         <ScrollView
-          style={{ }}
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
@@ -70,6 +81,7 @@ export default function CategoriesSlider({ title, customStyle = { marginTop: 0 }
                 key={category.id}  // Use unique key for list items
                 title={category.name}  // Pass category name
                 icon={category.icon}  // Pass category icon URL
+                onPress={() => handleCategoryPress(category.id)}  // Handle click
               />
             ))
           ) : (
@@ -100,15 +112,13 @@ const style = StyleSheet.create({
       categoryBoxIcon: {
         justifyContent: "center",
         alignItems: "center",
-        width: 53,
+        width: 55,
         backgroundColor: "#020202",
-        borderRadius: 16,
         aspectRatio: "1",
       },
       categoryBoxText: {
         fontSize: 12,
         marginTop: 10,
-        fontWeight: "400",
         fontFamily: FONT.MEDIUM,
         width: 70,
         textAlign: "center",

@@ -143,6 +143,17 @@ export const getDetailsByHSn = async (hsn) => {
     throw error;
   }
 };
+export const getCollectionResult = async (id) => {
+
+  
+  try {
+    const response = await axiosInstance.get(`/ecom/product/list/?collection=${id}`); 
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching details by HSN:', error);
+    throw error;
+  }
+};
 
 
 
