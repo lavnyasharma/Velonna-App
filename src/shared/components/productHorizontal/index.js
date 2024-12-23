@@ -17,7 +17,7 @@ export default function ProductHorizontal({ actions = true }) {
   const [cartItems, setCartItems] = useState([]); // Ensure this is an array
   const [loading, setLoading] = useState(true); // Track loading state
   const [visibleMenu, setVisibleMenu] = useState(null); // To track which menu is visible
-  const { cart } = useCart();
+  const { cart ,removeFromCart} = useCart();
 
   useEffect(() => {
     // Fetch cart items
@@ -27,7 +27,7 @@ export default function ProductHorizontal({ actions = true }) {
         const data = await getCart();
         // Ensure data is an array or contains the array you need
         setCartItems(data.cart_item || []);
-        console.log(data.cart_item);
+      
       } catch (error) {
         console.error("Error fetching cart:", error);
       } finally {
@@ -40,7 +40,7 @@ export default function ProductHorizontal({ actions = true }) {
 
   const handleDelete = async (cartItemId) => {
     try {
-      await deleteFromCart(cartItemId); // Call delete API
+      await removeFromCart(cartItemId); // Call delete API
       setCartItems((prevItems) =>
         Array.isArray(prevItems)
           ? prevItems.filter((item) => item.id !== cartItemId)

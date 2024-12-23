@@ -36,10 +36,10 @@ import { CartProvider, useCart } from "@/context/cartContext";
 import Svg, { Path } from "react-native-svg";
 import { Coupon, Right } from "../home/components/layouts/section";
 import { useNavigation } from "@react-navigation/native";
+import LottieView from "lottie-react-native";
 
 export default function OrderReview() {
-  const {cart} = useCart();
-  console.log(cart)
+  const { cart } = useCart();
   const navigation = useNavigation();
   const [openMethodPayment, setOpenMethodPayment] = useState(false);
   const [openAddress, setOpenAddress] = useState(false);
@@ -75,18 +75,24 @@ export default function OrderReview() {
         <HeaderBack title="Order Review" />
 
         <View style={{ marginTop: normalize(24), flex: 1 }}>
-        <CartProvider>
-        <ProductHorizontal actions={true} />
+          <CartProvider>
+            <ProductHorizontal actions={true} />
           </CartProvider>
         </View>
 
         <TouchableOpacity style={styles.button} onPress={handlePress}>
-      <View style={styles.svgContainer}>
-        <Coupon />
-        <Text style={styles.text}>Apply Coupon</Text>
-      </View>
-     <Right/>
-    </TouchableOpacity>
+          <View style={styles.svgContainer}>
+            {/* Lottie animation instead of Coupon component */}
+            <LottieView
+         source={require('@/animation/coupon.json')}
+              autoPlay
+              loop
+              style={{ width: 30, height: 30 }} // Adjust the size as necessary
+            />
+            <Text style={styles.text}>Apply Coupon</Text>
+          </View>
+          <Right />
+        </TouchableOpacity>
 
         <View style={styles.containerSummary}>
           <Summary />
@@ -96,16 +102,15 @@ export default function OrderReview() {
         </View>
 
         <View style={{ marginTop: normalize(24) }}>
-
-        <View style={styles.priceContainer}>
-  <Typography customStyle={styles.textTotal} value="Checkout" />
-  <View>
-    <Typography
-      customStyle={styles.price}
-      value={`₹${(cart?.total ? cart.total * 1.03 : 0).toFixed(2)}`}
-    />
-  </View>
-</View>
+          <View style={styles.priceContainer}>
+            <Typography customStyle={styles.textTotal} value="Checkout" />
+            <View>
+              <Typography
+                customStyle={styles.price}
+                value={`₹${(cart?.total ? cart.total * 1.03 : 0).toFixed(2)}`}
+              />
+            </View>
+          </View>
         </View>
       </ScrollView>
 

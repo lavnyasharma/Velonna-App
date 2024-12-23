@@ -32,7 +32,6 @@ handleLikeToggle()
         loop={false} // No loop, play once
         style={{ height: 60, width: 60 }}
         onAnimationFinish={() => {
-          console.log("Animation finished");
         }}
         onError={(error) => {
           console.error("Lottie animation failed to load:", error);

@@ -12,10 +12,11 @@ import { NavigationProps } from "@/shared/routes/stack";
 import TitleSection from "@/shared/components/titleSection";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CartIcon, LogOutIcon, PrivacyPolicy, TermsAndConditionsIcon } from "../home/components/layouts/section";
+import { AuthContext, useAuthContext } from "@/context/AuthContext";
 export default function Profile({ navigation }) {
   const { isDarkMode } = useDarkMode();
   const styles = styless(isDarkMode);
-
+  const {logout} = useAuthContext()
   const [firstname, setUsername] = useState('');
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
@@ -48,6 +49,7 @@ export default function Profile({ navigation }) {
 
   const handleLogout = async () => {
     try {
+      logout()
       await AsyncStorage.removeItem('userInfo');
       navigation.navigate('login'); // Navigate to the login screen
     } catch (error) {
@@ -59,7 +61,7 @@ export default function Profile({ navigation }) {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
-      <HeroBackground height={200}>
+ 
         <View style={{ paddingHorizontal: normalize(24) }}>
           <Typography customStyle={styles.titleScreen} value="Profile" />
           <View style={styles.row}>
@@ -78,7 +80,7 @@ export default function Profile({ navigation }) {
           </View>
         </View>
 
-      </HeroBackground>
+
 
       <View style={styles.body}>
         <TitleSection value="Account Settings" />

@@ -24,8 +24,11 @@ export const styless = (isDarkMode) => StyleSheet.create({
 
   },
   searchBar:{
-    paddingTop:20,
-    paddingBottom:20,
+    backgroundColor:"#fff",
+  },
+  StripedBanner:{
+    position: 'relative', top: 15
+
   },
   row: {
     flexDirection: 'row',

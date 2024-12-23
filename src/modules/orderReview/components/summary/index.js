@@ -3,10 +3,13 @@ import { styless } from "./styles";
 import Typography from "@/shared/components/Typography";
 import useDarkMode from "@/shared/hooks/useDarkMode";
 import { useCart } from "@/context/cartContext";
+import { useEffect } from "react";
 
 export default function Summary() {
   const {cart} = useCart();
-  console.log(cart)
+  useEffect(()=>{
+
+  },[cart])
   const { isDarkMode } = useDarkMode();
   
   const styles = styless(isDarkMode);

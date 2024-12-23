@@ -14,7 +14,7 @@ const IconAndSubtitleContainer = ({ title, icon, onPress }) => {
       activeOpacity={0.7} // Adds activeOpacity to ensure the click is responsive
     >
       <View style={style.scrollContainer.categoryBox.categoryBoxIcon}>
-        <Image source={{ uri: icon }} style={{ width: '100%', height: '100%' }} />
+        <Image source={{ uri: icon }} style={{ width: '100%', height: '100%', borderRadius: 8, }} />
       </View>
       <Text numberOfLines={1} style={style.scrollContainer.categoryBox.categoryBoxText}>
         {formatTitle(title)}
@@ -42,7 +42,7 @@ export default function CategoriesSlider({ title, customStyle = { marginTop: 0 }
     const fetchCategories = async () => {
       try {
         const response = await getCollection();  // API call
-        console.log('Fetched Categories:', response.data);  // Log the result
+       
         setCategories(response.data);  // Assuming response.data contains the categories
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -114,6 +114,7 @@ const style = StyleSheet.create({
         alignItems: "center",
         width: 55,
         backgroundColor: "#020202",
+        borderRadius: 8,
         aspectRatio: "1",
       },
       categoryBoxText: {

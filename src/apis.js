@@ -102,7 +102,7 @@ export const getUserInfo = async (username) => {
   }
 };
 
-export const fetchProductList = async (page = 1, limit = 21) => {
+export const fetchProductList = async (page = 1, limit = 10) => {
   try {
     const response = await axiosInstance.get(`/ecom/product/list/`, {
       params: { page, limit },
@@ -169,12 +169,9 @@ export const getCart = async () => {
 export const deleteFromCart = async (cartItemId) => {
   try {
     const response = await axiosInstance.delete(`cart-item/${cartItemId}/`);
-    console.log(response)
-    console.log(response.status)
-    if (!response || response.status === 204) {
-       console.log(response)
-       console.log(response.status)
-      console.log('Item successfully deleted');
+   
+    if (!response || response.status === 202) {
+       
       return {}; // Return an empty object or handle it in the caller
     }
     return response.data;

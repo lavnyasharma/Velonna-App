@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import globalStyles from "@/layouts/globalStyles";
 import { LinearGradient } from 'react-native-gradients';
+import StripedBanner from "../stripbanners/stripBanners";
 
 const { width: screenWidth } = Dimensions.get("window");
 const sildeWidth = screenWidth;
@@ -64,6 +65,7 @@ const ImageSlider = ({ images }) => {
 
   return (
     <View style={styles.container}>
+        
       <ScrollView
         ref={scrollViewRef}
         horizontal
@@ -73,6 +75,7 @@ const ImageSlider = ({ images }) => {
         scrollEventThrottle={16}
         contentContainerStyle={{
           overflow: "visible",
+          
           paddingRight: 16,
           width:screenWidth*images.length
         }}
@@ -132,7 +135,7 @@ const styles = StyleSheet.create({
   image: {
     width:"100%",
     height:"100%",
-    resizeMode: "cover",
+    resizeMode: "contain",
   },
   dotContainer: {
     width: screenWidth,

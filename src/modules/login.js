@@ -33,9 +33,6 @@ export default function Login({ navigation }) {
     const handleLogin = async () => {
  
 
-        console.log('Attempting to log in with:');
-        console.log('Username:', username);
-        console.log('Password:', password);
     
         try {
           const response = await axiosInstance.post('/login/', {
@@ -43,20 +40,18 @@ export default function Login({ navigation }) {
             password,
           });
     
-          console.log('Response data:', response.data);
+        
     
           if (response.status === 200) {
             // Assuming the API returns an object containing access and refresh tokens
             const { access, refresh } = response.data; // Adjust according to your API response structure
-            console.log('Login successful, tokens received:', { access, refresh });
+            
             
             // Store the tokens in AsyncStorage using the storeTokens function
             await storeTokens(access, refresh);
     
             // Fetch user info after successful login
-            const userInfo = await getUserInfo(username);
-            console.log('User Info:', userInfo); // Log the user info
-            
+            const userInfo = await getUserInfo(username);  
             await AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
             navigation.navigate('home');
           } else {

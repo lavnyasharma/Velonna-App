@@ -14,7 +14,7 @@ import SearchBar from "./searchBar";
 export default function NavBar({ openSearch, goToBag }) {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
-  const { cart, itemCount, subtotal, totalDiscount, total, removeFromCart } =
+  const { cart, itemCount, subtotal, totalDiscount,fetchCart, total, removeFromCart } =
     useCart();
 
   useEffect(() => {
@@ -33,6 +33,10 @@ export default function NavBar({ openSearch, goToBag }) {
 
     fetchUsername();
   }, []);
+
+  useEffect(()=>{
+   
+  },[cart])
 
   const fullName = firstname && lastname ? `${firstname} ${lastname}` : "User";
 

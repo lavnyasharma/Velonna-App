@@ -8,7 +8,6 @@ import ProductSkeleton from "../skeletons/productSkeleton";
 
 export default function ProductList({ products, rows }) {
   const [loading, setLoading] = useState(true); // Loading state
-  console.log(products)
   useEffect(() => {
     if(products.length!==0){
       setLoading(false)

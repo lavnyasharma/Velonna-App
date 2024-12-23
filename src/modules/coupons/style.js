@@ -12,6 +12,7 @@ export const styless = (isDarkMode) =>
       flex: 1,
       backgroundColor: isDarkMode ? "#000" : "#fff",
     },
+    
     searchBar: {
       flexDirection: "row",
       marginHorizontal: 20,
