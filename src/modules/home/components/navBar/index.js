@@ -35,7 +35,6 @@ export default function NavBar({ openSearch, goToBag }) {
   }, []);
 
   useEffect(()=>{
-   
   },[cart])
 
   const fullName = firstname && lastname ? `${firstname} ${lastname}` : "User";

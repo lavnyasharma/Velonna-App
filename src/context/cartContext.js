@@ -14,7 +14,9 @@ export const CartProvider = ({ children }) => {
 
   const fetchCart = async () => {
     try {
+      console.log("fetching")
       const cartData = await getCart(); // Get the cart data from API
+      console.log(cartData)
       setCart(cartData); // Set the entire cart data
       setItemCount(cartData.cart_item.length); // Set the item count
       setSubtotal(cartData.subtotal); // Set the subtotal
@@ -29,26 +31,13 @@ export const CartProvider = ({ children }) => {
     try {
       await deleteFromCart(cartItemId); // Call delete API
       fetchCart(); // Re-fetch the cart after deleting an item
-      setCart((prevCart) => {
-        const updatedCartItems = prevCart.cart_item.filter(item => item.id !== cartItemId);
-        const updatedSubtotal = updatedCartItems.reduce((sum, item) => sum + item.price, 0);
-        const updatedTotal = updatedSubtotal - totalDiscount; // Adjust total with discounts
-
-        return {
-          ...prevCart,
-          cart_item: updatedCartItems,
-          subtotal: updatedSubtotal,
-          total: updatedTotal,
-        };
-      });
     } catch (error) {
       console.error('Failed to remove item from cart:', error); // Log error if removing fails
     }
   };
-
   useEffect(() => {
-   
-    fetchCart(); // Fetch cart data when component mounts
+   if(!cart)
+    {fetchCart();} // Fetch cart data when component mounts
   }, []); // Empty dependency array ensures it runs only once
 
   return (

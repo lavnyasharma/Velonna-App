@@ -75,7 +75,7 @@ export const styless = (isDarkMode) => StyleSheet.create({
 },
 nameCollection: {
   color: isDarkMode ? color.neutral.white : color.neutral.black,
-  fontFamily: FONT.MEDIUM,
+  fontFamily: FONT.THIN,
   fontSize: normalize(15),
   width: '100%',          // Set the width to 80%
   overflow: 'hidden',    // Ensure content doesn't overflow

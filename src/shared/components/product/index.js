@@ -45,7 +45,6 @@ const hsn = product.hsn
       <View style={styles.reviewContainer}>
             <Typography customStyle={styles.reviewText} value="0 ⭐️" />
           </View>
-
       <View style={{ marginTop: normalize(8), padding: normalize(8) }}>
         <Typography
         numberOfLines={1} 

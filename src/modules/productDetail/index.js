@@ -20,6 +20,7 @@ import { useCart } from "@/context/cartContext";
 import ProductImageCarousel from "../home/components/ProductImageCarousel";
 import { formatCurrency } from "@/shared/helpers";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CollapsableSections from "../home/components/CollapsableSections";
 
 export default function ProductDetail({ route }) {
   function formatTitle(title) {
@@ -48,6 +49,7 @@ export default function ProductDetail({ route }) {
     const fetchProductDetails = async () => {
       try {
         const data = await getDetailsByHSn(hsn);
+        console.log(data)
         setProduct(data);
       } catch (error) {
         console.error("Failed to fetch product details:", error);
@@ -153,7 +155,16 @@ export default function ProductDetail({ route }) {
               </Animated.View>
             )}
           </View>
+     
         </View>
+        <CollapsableSections
+  collapsableData={product?.description} // Pass product description here
+  collapsable={true}
+  name={"Product Details"}
+  callback={() => {
+    console.log("Test");
+  }}
+/>
       </ScrollView>
     </SafeAreaView>
   );

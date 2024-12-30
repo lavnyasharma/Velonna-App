@@ -8,7 +8,7 @@ import { useEffect } from "react";
 export default function Summary() {
   const {cart} = useCart();
   useEffect(()=>{
-
+    console.log("this is summry value")
   },[cart])
   const { isDarkMode } = useDarkMode();
   

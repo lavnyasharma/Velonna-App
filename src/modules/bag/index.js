@@ -21,9 +21,9 @@ export default function Bag() {
         <HeaderBack title="Bag" />
 
         <View style={{ marginTop: normalize(15), flex: 1 }}>
-          <CartProvider>
+         
           <ProductHorizontal />
-          </CartProvider>
+         
         </View>
         <Button onPress={() => navigation.navigate('orderReview')} title="Checkout" />
       </View>
